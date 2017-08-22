@@ -64,67 +64,6 @@ function search() {
 }
 //$(".search").on("keyup", search);
 
-/*function callApi(arr) {
-        var i = 0;
-        while (i < arr.length) {
-                //panel = "<div class='panel'><div class='logo' id='logo'></div><div class='name' id='name'></div><div class='status' id='status'></div></div>";
-                //$(".channels").append(panel);
-                $.getJSON("https://wind-bow.gomix.me/twitch-api/channels/ " + arr[i] + "?callback=?", function(data) {
-                        console.log(data);
-                        //$(".channels").html("<div class='panel'><div class='logo'><img src=" + data.logo + " alt=" + data.display_name + "></div><div class='name'>" + data.display_name + "</div><div class='status'>" + data.status + "</div></div>");
-                        /*$(".panel").eq(i).find(".name").html(data.display_name);
-                        $(".panel").eq(i).find(".status").html(data.status);*/
-                        //$(".panel").eq(i)(function() {
-                                /*$(logos[i]).html("<img src=" + data.logo + " alt=" + data.display_name + ">");
-                                $(names[i]).html(data.display_name);
-                                $(statuses[i]).html(data.status);
-                                //myArr[i].append(logo);
-                        //});
-                });
-                i++;
-        }
-}*/
-
-
-//TO DO: Make tabs different colours, and change background of panel to align with tab colour
-//Suggest other channels user may like based on channels already subscribed to - use channels to find similar
-/*$.getJSON("https://wind-bow.gomix.me/twitch-api/channels/freecodecamp?callback= ?", function(data) {
-console.log(data);
-$("#test").html("<img src=" + data.logo + " alt=" + data.display_name + ">");
-$("#testes").html(data.display_name);
-$("#testicles").html(data.status);
-urls.push(data.url);
-});
-
-
-$.getJSON("https://wind-bow.gomix.me/twitch-api/channels/esl_sc2?callback= ?", function(data) {
-        console.log(data);
-        $("#test2").html("<img src=" + data.logo + " alt=" + data.display_name + ">");
-        $("#testes2").html(data.display_name);
-        $("#testicles2").html(data.status);
-        urls.push(data.url);
-});
-
-
-$.getJSON("https://wind-bow.gomix.me/twitch-api/channels/brunofin?callback= ?", function(data) {
-        console.log(data);
-});
-
-
-//Go to live stream on clicking channel's status
-$(".status").on("click", function() {
-        console.log($(this));
-        //window.open("https://www.twitch.tv/" + thing, "_blank");
-});*/
-
-
-/*streams.forEach(function() {
-        $(".channels").html("<div class='panel'><div class='logo'></div><div class='name'></div><div class='status'></div></div>");
-});*/
-
-
-//callApi(streams);
-
 //change active tab
 $("button").on("click", function() {
     $("button").removeClass("active");
@@ -175,21 +114,6 @@ $(document).on("click", "div.panel", function() {
     }
 });
 
-//filter panels on page to match current search
-/*var $panels = $('.channels .panel');
-$("input").keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-    console.log(val);
-    console.log($panels);
-
-    $(".channels").show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        console.log(text);
-        while (val.length > 0) {
-                return text.indexOf(val) >= 0;
-        }
-    }).hide();
-});*/
 $("input").keyup(filter);
 
 function filter() {
