@@ -7,45 +7,43 @@ streams.forEach(getInfo);
 
 //retrieves API info for each stream and displays on the page
 function getInfo(username) {
-        //get channel information
-                $.getJSON("https://wind-bow.gomix.me/twitch-api/channels/" + username + "/?callback=?", function(data) {
-        console.log(data);
-        //display error message if channel does not exist
-                if (data.status == 404 || data.status == null) {
-            markupArr.push("<div class='panel' style='background: yellow'><div class='logo'><img src='http://i1378.photobucket.com/albums/ah103/humanforklift/Twitch%20viewer/jean-victor-balin-unknown-blue_zpsrokednch.jpg' alt=" + username + "></div><div class='name' id='name'>" + username + "</div><div class='status error' id='status'>This channel is not working currently. <br />Click or change tabs to remove.</div></div>");
-        //display channel information
-                } else {
-                        markupArr.push("<div class='panel'><div class='logo'><img src=" + data.logo + " alt=" + data.display_name + "></div><div class='name' id='name'>" + data.display_name + "</div><div class='status' id=" + username + "></div></div>");
-        }
-        $(".channels").html(markupArr);
-                //check if channel is streaming
-                $.getJSON("https://wind-bow.gomix.me/twitch-api/streams/" + username + "/?callback=?", function(data) {
-                        console.log(data);
-                        //channel is online
-                        if (data.stream) {
-                                $("#" + username).addClass("online").html("Streaming - " + data.stream.channel.status + ".").addClass("stream-name");
-                                /*$(".panel").each(function(i, obj) {
-                                        if ($(this).children().hasClass("online")) {
-                                                online.push(obj);
-                                                online.push(username);
-                                        } else {
-                                                offline.push(obj);
-                                        }
-                                });*/
-                        //channel is offline
-                        } else {
-                                $("#" + username).addClass("offline").html("This channel is taking a break.");
-                        }
-                        //check if channel is online or offline to filter
-                        $(".panel").each(function(i, obj) {
-                                if ($(this).children().hasClass("online")) {
-                                        online.push(obj);
-                                } else if ($(this).children().hasClass("offline")) {
-                                        offline.push(obj);
-                                }
-                        });
-                });
+    //get channel information
+    $.getJSON("https://wind-bow.gomix.me/twitch-api/channels/" + username + "/?callback=?", function(data) {
+    console.log(data);
+
+    //display error message if channel does not exist
+    if (data.status == 404 || data.status == null) {
+        markupArr.push("<div class='panel' style='background: yellow'><div class='logo'><img src='http://i1378.photobucket.com/albums/ah103/humanforklift/Twitch%20viewer/jean-victor-balin-unknown-blue_zpsrokednch.jpg' alt=" + username + "></div><div class='name' id='name'>" + username + "</div><div class='status error' id='status'>This channel is not working currently. <br />Click or change tabs to remove.</div></div>");
+        
+    //display channel information
+    } else {
+        markupArr.push("<div class='panel'><div class='logo'><img src=" + data.logo + " alt=" + data.display_name + "></div><div class='name' id='name'>" + data.display_name + "</div><div class='status' id=" + username + "></div></div>");
+    }
+    $(".channels").html(markupArr);
+    
+        //check if channel is streaming
+        $.getJSON("https://wind-bow.gomix.me/twitch-api/streams/" + username + "/?callback=?", function(data) {
+            console.log(data);
+    
+            //channel is online
+            if (data.stream) {
+                $("#" + username).addClass("online").html("Streaming - " + data.stream.channel.status + ".").addClass("stream-name");
+
+            //channel is offline
+            } else {
+                $("#" + username).addClass("offline").html("This channel is taking a break.");
+            }
+    
+            //check if channel is online or offline to filter
+            $(".panel").each(function(i, obj) {
+                if ($(this).children().hasClass("online")) {
+                    online.push(obj);
+                } else if ($(this).children().hasClass("offline")) {
+                    offline.push(obj);
+                }
+            });
         });
+    });
 }
 
 function search() {
@@ -89,19 +87,10 @@ $("#offline").on("click", function() {
 
 //show all channels
 $("#all").on("click", function() {
-        //console.log(online);
-        //console.log(offline);
-        markupArr.forEach(function(item) {
-                //console.log(item);
-                //var box = $(item).find(".status").addClass("online");
-                //console.log(box);
-                //var name = $(item).children("#name").html(), cock = $("div");
-                        //$(item).children("#name").addClass("online");
-                        $(".channels").html(online);
-                        $(".channels").append(offline);
-
-        });
-        //$(".channels").html(markupArr);
+    markupArr.forEach(function(item) {
+        $(".channels").html(online);
+        $(".channels").append(offline);
+    });
 });
 
 //add click events to panels
@@ -117,18 +106,18 @@ $(document).on("click", "div.panel", function() {
 $("input").keyup(filter);
 
 function filter() {
-        var names = $(".name"), val = $("input").val().toLowerCase(), username, page = $(".channels");
-        console.log(val);
-        for (var i = 0; i < names.length; i++) {
-                username = names[i].innerHTML.toLowerCase();
-                console.log(username);
-                if (username.indexOf(val) != -1) {
-                        $(".panel")[i].style.display = "";
-                } else {
-                        $(".panel")[i].style.display = "none";
-                }
-                //if (page.find(""))
+    var names = $(".name"), val = $("input").val().toLowerCase(), username, page = $(".channels");
+    console.log(val);
+    for (var i = 0; i < names.length; i++) {
+        username = names[i].innerHTML.toLowerCase();
+        console.log(username);
+        
+        if (username.indexOf(val) != -1) {
+            $(".panel")[i].style.display = "";
+        } else {
+            $(".panel")[i].style.display = "none";
         }
+    }
 }
 
 console.log(urls);
